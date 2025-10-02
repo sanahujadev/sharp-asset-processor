@@ -19,3 +19,8 @@ pnpm-debug.log*
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Imagenes en assets
+/assets/*.png
+/assets/*.jpg
+/assets/*.*
