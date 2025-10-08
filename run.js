@@ -37,7 +37,7 @@ fs.readdir(assetsDir, (err, files) => {
         }
 
         // 1. Copy the original file
-        fs.copyFileSync(inputFilePath, path.join(imageOutputDir, file));
+        fs.copyFileSync(inputFilePath, path.join(imageOutputDir, `original${path.extname(file)}`));
         console.log(`[${imageName}] Copiado el archivo original.`);
 
         const processingPromises = [];
