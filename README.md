@@ -1,57 +1,91 @@
-# Sharp Image and PDF Pipeline
+# Sharp Asset Processing Pipeline
 
-Este es un script de Node.js que automatiza el procesamiento de imágenes y PDFs para la web moderna. Utiliza la librería `sharp` para convertir un directorio de imágenes en un conjunto de formatos y tamaños optimizados, y `pdf-to-img` para convertir PDFs a imágenes.
+Este es un pipeline de Node.js diseñado para automatizar y optimizar el procesamiento de activos visuales (imágenes y PDFs) para su uso en la web moderna. Utiliza la potente librería `sharp` y `pdf-to-img` para crear un conjunto completo de imágenes optimizadas a partir de un directorio de origen.
 
-## ¿Qué hace?
+## ✨ Características
 
-### Procesamiento de Imágenes
+### 🖼️ Procesamiento de Imágenes
 
-El script toma todas las imágenes que se encuentran en la carpeta `/assets` y por cada una de ellas:
+-   **Múltiples Formatos:** Convierte tus imágenes a los formatos más eficientes y compatibles: `avif`, `webp` y `jpeg`.
+-   **Varios Tamaños (Responsive):** Genera múltiples anchos para asegurar tiempos de carga rápidos en cualquier dispositivo: `1920w`, `1280w`, `720w` y `360w`.
+-   **Thumbnails Automáticos:** Crea automáticamente un thumbnail de `100px` de ancho (`thumbnail.*`) para vistas previas rápidas.
+-   **Conserva el Original:** Guarda una copia de la imagen original sin procesar para futuras referencias.
 
-1.  Crea un nuevo directorio en la carpeta `/output` con el nombre de la imagen original.
-2.  Dentro de ese nuevo directorio, genera tres subcarpetas: `avif`, `webp` y `jpg`.
-3.  Copia la imagen original en el directorio con el nombre `original.<ext>`.
-4.  Convierte la imagen original a los siguientes formatos y tamaños, guardándolos en sus respectivas carpetas:
-    -   **Anchos:** 360w, 720w, 1280w, 1920w.
-    -   **Formatos:** AVIF, WebP, y JPEG.
+### 📄 Procesamiento de PDFs
 
-### Procesamiento de PDFs
+-   **Extracción de Portada:** Toma la primera página de cada PDF para generar imágenes de vista previa.
+-   **Múltiples Formatos:** Convierte la portada a `avif`, `webp` y `jpeg`.
+-   **Dos Tamaños de Thumbnail:**
+    -   Un thumbnail estándar de `100px` de ancho (`thumbnail.*`).
+    -   Una vista previa más grande de `360px` de ancho (`thumbnail-360w.*`).
+-   **Conserva el Original:** Al igual que con las imágenes, guarda una copia del PDF original.
 
-El script toma todos los PDFs que se encuentran en la carpeta `/pdf-assets` y por cada uno de ellos:
+## 🚀 Cómo Empezar
 
-1.  Convierte cada página del PDF a una imagen PNG.
-2.  Guarda las imágenes en la carpeta `/output` con el nombre `pdf-<nombre-del-pdf>-<numero-de-pagina>.png`.
+### Requisitos Previos
 
-## Uso
+-   [Node.js](https://nodejs.org/) (v18 o superior)
+-   [pnpm](https://pnpm.io/installation) como gestor de paquetes.
 
-### Imágenes
+### Instalación y Uso
 
-1.  **Instalar dependencias:**
+1.  **Clona el repositorio:**
+    ```bash
+    git clone <URL-DEL-REPOSITORIO>
+    cd <nombre-del-directorio>
+    ```
+
+2.  **Instala las dependencias:**
     ```bash
     pnpm install
     ```
-2.  **Añadir imágenes:**
-    Coloca todas las imágenes que deseas procesar en la carpeta `/assets`.
 
-3.  **Ejecutar el script:**
-    ```bash
-    pnpm run dev
-    ```
+3.  **Añade tus archivos:**
+    -   Copia las **imágenes** que deseas procesar en la carpeta `/assets`.
+    -   Copia los **PDFs** que deseas procesar en la carpeta `/pdf-assets`.
 
-Las imágenes procesadas aparecerán en la carpeta `/output` con la estructura de directorios descrita anteriormente.
+4.  **Ejecuta los scripts:**
+    -   Para procesar las imágenes:
+        ```bash
+        pnpm run dev
+        ```
+    -   Para procesar los PDFs:
+        ```bash
+        pnpm run pdf
+        ```
 
-### PDFs
+## 📂 Estructura de Salida
 
-1.  **Instalar dependencias (si no lo has hecho ya):**
-    ```bash
-    pnpm install
-    ```
-2.  **Añadir PDFs:**
-    Coloca todos los PDFs que deseas procesar en la carpeta `/pdf-assets`.
+Los archivos procesados se guardarán en la carpeta `/output`, organizados por el nombre del archivo original. A continuación se muestra un ejemplo de la estructura generada:
 
-3.  **Ejecutar el script:**
-    ```bash
-    pnpm run pdf
-    ```
-
-Las imágenes generadas a partir de los PDFs aparecerán en la carpeta `/output`. Son Thumbnails de los pdfs.
+```
+output/
+├──
+│   bonos-604/            # Carpeta generada para un PDF
+│   ├── avif/
+│   │   ├── thumbnail-360w.avif
+│   │   └── thumbnail.avif
+│   ├── jpeg/
+│   │   ├── thumbnail-360w.jpeg
+│   │   └── thumbnail.jpeg
+│   ├── pdf/
+│   │   └── original.pdf
+│   └── webp/
+│       ├── thumbnail-360w.webp
+│       └── thumbnail.webp
+│
+└── HPIM6550/             # Carpeta generada para una imagen
+    ├── avif/
+    │   ├── HPIM6550-1280w.avif
+    │   ├── HPIM6550-1920w.avif
+    │   ├── HPIM6550-360w.avif
+    │   ├── HPIM6550-720w.avif
+    │   └── thumbnail.avif
+    ├── jpeg/
+    │   ├── HPIM6550-1280w.jpeg
+    │   # ... y así sucesivamente
+    ├── original.JPG
+    └── webp/
+        ├── HPIM6550-1280w.webp
+        # ... y así sucesivamente
+```

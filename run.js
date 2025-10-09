@@ -61,6 +61,20 @@ fs.readdir(assetsDir, (err, files) => {
                 
                 processingPromises.push(promise);
             });
+
+            // Generar thumbnail
+            const thumbnailWidth = 100;
+            const thumbnailFileName = `thumbnail.${format}`;
+            const thumbnailFilePath = path.join(formatDir, thumbnailFileName);
+
+            const thumbnailPromise = sharp(inputFilePath)
+                .resize({ width: thumbnailWidth })
+                .toFormat(format)
+                .toFile(thumbnailFilePath)
+                .then(() => console.log(`[${imageName}] Generado: ${thumbnailFileName}`))
+                .catch(err => console.error(`Error al generar ${thumbnailFileName}:`, err));
+            
+            processingPromises.push(thumbnailPromise);
         });
 
         Promise.all(processingPromises)

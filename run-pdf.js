@@ -36,22 +36,30 @@ async function createPdfThumbnails(pdfPath) {
 
         const processingPromises = [];
 
+        const sizes = [
+            { width: 100, name: 'thumbnail' },
+            { width: 360, name: 'thumbnail-360w' }
+        ];
+
         formats.forEach(format => {
             const formatDir = path.join(pdfOutputDir, format);
             if (!fs.existsSync(formatDir)) {
                 fs.mkdirSync(formatDir);
             }
 
-            const outputPath = path.join(formatDir, `thumbnail.${format}`);
+            sizes.forEach(size => {
+                const outputFileName = `${size.name}.${format}`;
+                const outputPath = path.join(formatDir, outputFileName);
 
-            const promise = sharp(firstPageBuffer)
-                .resize({ width: 360 })
-                .toFormat(format)
-                .toFile(outputPath)
-                .then(() => console.log(`[${pdfName}] Generada: thumbnail.${format}`))
-                .catch(err => console.error(`[${pdfName}] Error al generar thumbnail.${format}:`, err));
+                const promise = sharp(firstPageBuffer)
+                    .resize({ width: size.width })
+                    .toFormat(format)
+                    .toFile(outputPath)
+                    .then(() => console.log(`[${pdfName}] Generada: ${outputFileName}`))
+                    .catch(err => console.error(`[${pdfName}] Error al generar ${outputFileName}:`, err));
 
-            processingPromises.push(promise);
+                processingPromises.push(promise);
+            });
         });
 
         Promise.all(processingPromises)
