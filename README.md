@@ -53,6 +53,11 @@ Este es un pipeline de Node.js diseñado para automatizar y optimizar el procesa
         ```bash
         pnpm run pdf
         ```
+    -   Para un procesamiento personalizado (muy específico):
+        ```bash
+        pnpm run custom
+        ```
+        Este comando te preguntará interactivamente el formato y el ancho que deseas aplicar a **todas** las imágenes en la carpeta `/assets`. Es útil para necesidades puntuales que no están cubiertas por el script `dev` estándar.
 
 ## 📂 Estructura de Salida
 

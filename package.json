@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node run.js",
-    "pdf": "node run-pdf.js"
+    "pdf": "node run-pdf.js",
+    "custom": "node run-custom.js"
   },
   "keywords": [],
   "author": "",
