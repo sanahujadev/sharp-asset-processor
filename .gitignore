@@ -25,3 +25,6 @@ Thumbs.db
 /assets/*.jpg
 /assets/*.*
 /pdf-assets/*.pdf
+
+# variables de entorno
+.env
