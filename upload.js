@@ -70,6 +70,8 @@ async function main() {
             choices: [
                 { name: 'sanahujadev', value: 'sanahujadev' },
                 { name: 'jenyogart', value: 'jenyogart' },
+                { name: 'carousel Javier Angel', value: 'sanahujadev/birthday/ja-sn-rr/carousel' },
+                { name: 'carousel José Manuel', value: 'sanahujadev/birthday/jm-sn-rr/carousel' },
             ],
         });
 
